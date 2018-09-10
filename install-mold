@@ -1,12 +1,27 @@
 # !/bin/bash
 
+
+echo "copying mold to ~/mold"
+rm -rf ~/mold
+mkdir ~/mold
+cp -r lib/ ~/mold/lib/
+cp Gemfile ~/mold/Gemfile
+cp mold.rb ~/mold/mold.rb
+
+echo "go to folder"
+cd ~/mold
+
+echo "install gems"
 bundle install
-echo "copying mold.rb to mold"
-cp mold.rb mold
+
 echo "making mold executable"
-chmod +x mold
-echo "movind mold to /usr/local/bin"
+sed -i '' 's|[.]/lib|~/mold/lib|g' mold.rb
+sed -i '' 's|[.]/lib|~/mold/lib|g' lib/templates.rb
+chmod +x mold.rb
+
+echo "create sym link at /usr/local/bin"
 rm /usr/local/bin/mold
-mv mold /usr/local/bin/mold
+ln -s ~/mold/mold.rb /usr/local/bin/mold
+
 echo "mold installed!!"
-mold help
+#mold help
