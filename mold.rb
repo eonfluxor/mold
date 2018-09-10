@@ -1,12 +1,10 @@
+#!/usr/bin/env ruby
+
 require 'fileutils'
 require 'git'
 require './lib/utils.rb'
 require './lib/core.rb'
 require './lib/templates.rb'
-
-TEMPLATES_REPO="git@github.com:eonfluxor/molds.git"
-TEMPLATE_STRING="BOILER_PLATE_TEMPLATE"
-ENVIRONMENT = :dev
 
 ##############
 ## MAIN
