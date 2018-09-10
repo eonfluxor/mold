@@ -1,5 +1,5 @@
 --------------
-#MOLD : Agnostic Templates
+#MOLD Agnostic Templates
 
 **Mold** allows to create projects from "mold" templates. Templates are called **Molds** (plural) 
 
