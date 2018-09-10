@@ -1,8 +1,9 @@
 require 'fileutils'
  require 'git'
 
-TEMPLATES_REPO="git@github.com:hassanvfx/mold.git"
+TEMPLATES_REPO="git@github.com:hassanvfx/molds.git"
 TEMPLATE_STRING="BOILER_PLATE_TEMPLATE"
+ENV = :dev
 
 #File.join(Dir.pwd,'some-dir','some-file-name')
 
@@ -62,6 +63,10 @@ def exists? file
 	(isDirectory? file) || (isFile? file)
 end
 
+def delete_dir! file_path
+	FileUtils.remove_dir file_path,force=true if exists? file_path 
+end
+
 
 def process_directory! path, newName, level=""
 
@@ -85,8 +90,12 @@ def process_directory! path, newName, level=""
 	
 end
 
+def template_direcory!
+	"molds"
+end
+
 def templates_path!
-	"templates"
+	File.join(Dir.pwd, template_direcory!)
 end
 
 def template_path! template
@@ -105,9 +114,12 @@ def copy_template! template, newName
 	source = template_path!  template
 	dest = newName
 
-	# raise "destination exists" if exists? dest
-
-	FileUtils.remove_dir dest,force=true if exists? dest #only use this for testing!
+	if ENV == :dev
+		delete_dir! dest
+	else
+		raise "destination exists" if exists? dest
+	end
+	
 	FileUtils.cp_r(source, dest)
 end
 
@@ -126,7 +138,9 @@ def create_template! templateName, newName
 end
 
 def clone_templates!
-	 Git.clone(TEMPLATES_REPO, 'molds')
+	templates_path = templates_path!
+	delete_dir! templates_path
+	Git.clone(TEMPLATES_REPO, template_direcory!)
 end
 
 templateName = ARGV[0]
