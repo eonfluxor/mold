@@ -1,6 +1,8 @@
 require 'fileutils'
+ require 'git'
 
-TEMPLATE_STRING="MyFrameworkTemplateName"
+TEMPLATES_REPO="git@github.com:hassanvfx/mold.git"
+TEMPLATE_STRING="BOILER_PLATE_TEMPLATE"
 
 #File.join(Dir.pwd,'some-dir','some-file-name')
 
@@ -28,13 +30,13 @@ def replace_string_in_file! file, newname
 	# File.rename("test.txt", "hope.txt")
 
 	text = File.read(file)
-    new_contents = text.gsub(TEMPLATE_STRING, newname)
+	new_contents = text.gsub(TEMPLATE_STRING, newname)
 
  #  # To merely print the contents of the file, use:
  #  puts new_contents
 
  #  # To write changes to the file, use:
-  	File.open(file, "w") {|file| file.puts new_contents }
+ File.open(file, "w") {|file| file.puts new_contents }
 end
 
 def isDirectory? file
@@ -58,7 +60,7 @@ end
 
 def exists? file
 	(isDirectory? file) || (isFile? file)
- end
+end
 
 
 def process_directory! path, newName, level=""
@@ -96,7 +98,7 @@ def template_path! template
 	else
 		raise "invalid template name #{template_sym}"
 	end
- 	
+
 end
 
 def copy_template! template, newName
@@ -109,19 +111,28 @@ def copy_template! template, newName
 	FileUtils.cp_r(source, dest)
 end
 
+def create_template! templateName, newName
+
+	raise "no template provided" unless  templateName and  newName
+	raise "no new name provided" unless  templateName and  newName
+
+	newPath = newName
+	newPath =  File.join(Dir.pwd,newName) unless  newName.include?("/")
+
+	puts "will use: #{templateName} for #{newName}"
+	copy_template! templateName,newPath
+	process_directory! newPath, newName
+
+end
+
+def clone_templates!
+	 Git.clone(TEMPLATES_REPO, 'molds')
+end
 
 templateName = ARGV[0]
 newName = ARGV[1]
 
-raise "no template provided" unless  templateName and  newName
-raise "no new name provided" unless  templateName and  newName
-
-newPath = newName
-newPath =  File.join(Dir.pwd,newName) unless  newName.include?("/")
-
-puts "will use: #{templateName} for #{newName}"
-copy_template! templateName,newPath
-process_directory! newPath, newName
+clone_templates!
 
 
 
