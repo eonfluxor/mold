@@ -1,0 +1,11 @@
+# !/bin/bash
+
+echo "copying mold.rb to mold"
+cp mold.rb mold
+echo "making mold executable"
+chmod +x mold
+echo "movind mold to /usr/local/bin"
+rm /usr/local/bin/mold
+mv mold /usr/local/bin/mold
+echo "mold installed!!"
+mold help
