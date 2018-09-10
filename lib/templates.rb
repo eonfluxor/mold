@@ -6,8 +6,11 @@ require './lib/utils.rb'
 def clone_templates!
 	templates_path = templates_path!
 	delete_dir! templates_path
+
+	path = Dir.home
+	
 	puts "cloning molds from: #{TEMPLATES_REPO}"
-	Git.clone(TEMPLATES_REPO, template_direcory!)
+	Git.clone(TEMPLATES_REPO, 'molds', { path: path  })
 end
 
 
@@ -29,7 +32,7 @@ def template_direcory!
 end
 
 def templates_path!
-	File.join(Dir.pwd, template_direcory!)
+	File.join(  Dir.home  , template_direcory!)
 end
 
 def template_path! template
