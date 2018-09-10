@@ -1,0 +1,38 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+def common_pods!
+    
+end
+
+
+target 'test-iOS' do
+    #use_frameworks!
+    common_pods!
+    
+    target 'test-iOSTests' do
+        common_pods!
+    end
+    
+end
+
+target 'test-macOS' do
+    #use_frameworks!
+    
+    common_pods!
+    target 'test-macOSTests' do
+       common_pods!
+    end
+    
+end
+
+target 'test-tvOS' do
+    #use_frameworks!
+    
+    common_pods!
+    
+    target 'test-tvOSTests' do
+        common_pods!
+    end
+    
+end

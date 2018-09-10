@@ -1,0 +1,6 @@
+framework module Pods_test_macOSTests {
+  umbrella header "Pods-test-macOSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
