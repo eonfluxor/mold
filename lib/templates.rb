@@ -7,10 +7,11 @@ def clone_templates!
 	templates_path = templates_path!
 	delete_dir! templates_path
 
-	path = Dir.home
+	path = File.path templates_path
 	
 	puts "cloning molds from: #{TEMPLATES_REPO}"
-	Git.clone(TEMPLATES_REPO, 'molds', { path: path  })
+	system "git clone #{TEMPLATES_REPO} #{path}"
+
 end
 
 

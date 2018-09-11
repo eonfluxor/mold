@@ -5,14 +5,10 @@ echo "copying mold to ~/mold"
 rm -rf ~/mold
 mkdir ~/mold
 cp -r lib/ ~/mold/lib/
-cp Gemfile ~/mold/Gemfile
 cp mold.rb ~/mold/mold.rb
 
 echo "go to folder"
 cd ~/mold
-
-echo "install gems"
-bundle install
 
 echo "making mold executable"
 sed -i '' 's|[.]/lib|~/mold/lib|g' mold.rb

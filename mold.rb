@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
-require 'git'
 require './lib/constants.rb'
 require './lib/utils.rb'
 require './lib/core.rb'
